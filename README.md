@@ -13,3 +13,10 @@ This repo contains real-world AWS projects (VPC, CI/CD, Monitoring, Serverless) 
 - Configured AWS CLI (`ap-southeast-2`)
 - Set $1 monthly budget
 - Created initial S3 test bucket
+
+# Day 2 - VPC Setup with Terraform
+- Created a custom VPC (10.0.0.0/16)
+- Added 2 subnets:
+  - Public Subnet (10.0.1.0/24, ap-southeast-2a)
+  - Private Subnet (10.0.2.0/24, ap-southeast-2b)
+- Verified in AWS Console
