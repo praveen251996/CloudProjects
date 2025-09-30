@@ -106,3 +106,42 @@ resource "aws_instance" "bastion" {
 
   tags = { Name = "bastion-host" }
 }
+
+
+# Security Group for Private Instance
+resource "aws_security_group" "private_sg" {
+  name        = "private-sg"
+  description = "Allow SSH only from Bastion Host"
+  vpc_id      = aws_vpc.main_vpc.id
+
+  ingress {
+    description              = "SSH from Bastion SG"
+    from_port                = 22
+    to_port                  = 22
+    protocol                 = "tcp"
+    security_groups          = [aws_security_group.bastion_sg.id] 
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = { Name = "private-sg" }
+}
+
+
+# Private EC2 Instance
+resource "aws_instance" "private_instance" {
+  ami                    = "ami-0c9d48b5db609ad6e"
+  instance_type          = "t2.micro"
+  subnet_id              = aws_subnet.private_subnet.id
+  vpc_security_group_ids = [aws_security_group.private_sg.id]
+  key_name               = "portfolio-purposes"    
+
+  associate_public_ip_address = false  
+
+  tags = { Name = "private-instance" }
+}

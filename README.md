@@ -45,4 +45,20 @@ Implemented:
 Note:
 In production, the Bastion Host is used as a secure entry point into private subnets. Administrators connect to the Bastion first, then hop into private subnet resources. For stronger security, AWS recommends using Systems Manager Session Manager instead of direct SSH.
 
+# Day 5 - Private Instance via Bastion Host
+
+Implemented:
+	•	Security Group (private-sg) created for private instance:
+	•	Allows inbound SSH (22) only from the Bastion Host security group.
+	•	Denies all direct internet SSH access.
+	•	Allows all outbound traffic for updates.
+	•	Private EC2 Instance (Amazon Linux 2, t2.micro Free Tier) launched in the private subnet.
+	•	No public IP assigned → instance is fully isolated from the internet.
+	•	Verified connectivity:
+	•	SSH from my laptop → Bastion Host.
+	•	From Bastion Host → SSH into the Private Instance (10.0.2.x).
+	•	Terraform outputs include Private Instance ID and Private IP.
+
+Note:
+This simulates a secure enterprise VPC design where private workloads are never exposed to the internet. All administrative access is restricted to a controlled Bastion Host. For production-grade setups, AWS Systems Manager Session Manager or VPN access is recommended instead of SSH for improved security, auditing, and key management.
 
