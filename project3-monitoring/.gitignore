@@ -1,0 +1,11 @@
+# Terraform junk
+.terraform/
+*.tfstate
+*.tfstate.*
+.terraform.lock.hcl
+crash.log
+
+# IDE/editor
+.vscode/
+.idea/
+.DS_Store
