@@ -62,3 +62,38 @@ Implemented:
 Note:
 This simulates a secure enterprise VPC design where private workloads are never exposed to the internet. All administrative access is restricted to a controlled Bastion Host. For production-grade setups, AWS Systems Manager Session Manager or VPN access is recommended instead of SSH for improved security, auditing, and key management.
 
+# DAY 6 : Monitoring & Alerting with CloudWatch
+
+Implemented:
+	•	CloudWatch Alarms
+	•	Created CPU Utilization Alarm for Bastion EC2 (threshold: >70% for 2 consecutive periods).
+	•	Configured Alarm Actions to notify via SNS.
+	•	SNS Topic
+	•	Created an SNS topic (portfolio-alerts) for alarm notifications.
+	•	Subscribed your email address to the topic for alerts.
+	•	Integration
+	•	Linked CloudWatch Alarm with SNS, ensuring email alerts on threshold breach.
+
+⸻
+
+Why This Matters:
+	•	Proactive Monitoring → Catch performance issues early (e.g., CPU spikes, memory pressure).
+	•	Automation-Ready → In production, alarms can trigger auto-scaling or Lambda remediation actions.
+	•	Observability → Essential skill for DevOps/SRE roles; shows ability to maintain healthy AWS workloads.
+
+⸻
+
+Notes:
+	•	In a real-world setup, multiple alarms would be created:
+	•	EC2 CPU, memory, disk utilization
+	•	ELB latency, 5xx error rate
+	•	RDS Free Storage / Connections
+	•	For cost reasons, we only tested with CPU Utilization Alarm and SNS Email.
+	•	Terraform code includes extensible blocks for adding more alarms easily.
+
+⸻
+
+Terraform Resources:
+	•	aws_cloudwatch_metric_alarm – CPU Utilization
+	•	aws_sns_topic – Notifications
+	•	aws_sns_topic_subscription – Email subscription
