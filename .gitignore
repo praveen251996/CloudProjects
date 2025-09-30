@@ -1,0 +1,14 @@
+cat > .gitignore <<'EOF'
+# Terraform local
+.terraform/
+*.tfstate
+*.tfstate.*
+.terraform.lock.hcl
+crash.log
+
+# OS / IDE
+.DS_Store
+.vscode/
+.idea/
+EOF
+
