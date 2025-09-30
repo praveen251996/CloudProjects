@@ -20,3 +20,29 @@ This repo contains real-world AWS projects (VPC, CI/CD, Monitoring, Serverless) 
   - Public Subnet (10.0.1.0/24, ap-southeast-2a)
   - Private Subnet (10.0.2.0/24, ap-southeast-2b)
 - Verified in AWS Console
+
+# Day 3 - Internet Gateway & Routing
+
+  Implemented:
+- Internet Gateway (IGW)
+- Public Route Table: 0.0.0.0/0 → IGW
+- Associated Public Subnet with Public Route Table
+- Created Private Route Table and associated it with Private Subnet
+- NAT Gateway + Elastic IP
+- Route from Private RT to NAT
+
+Note:
+In production, NAT Gateway would be used for secure outbound access from private subnets. Omitted here for cost-efficiency, but Terraform code is provided for completeness.
+
+# Day 4 - Bastion Host ( Jump Box ) 
+Implemented:
+	•	Security Group (bastion-sg) allowing inbound SSH (22) only from my IP.
+	•	Bastion Host EC2 instance (Amazon Linux 2, t2.micro Free Tier) launched in the public subnet.
+	•	Associated the Bastion Host with the Internet Gateway for public access.
+	•	Configured key pair authentication (portfolio-purposes.pem) for SSH access.
+	•	Outputted the Bastion Host public IP via Terraform.
+
+Note:
+In production, the Bastion Host is used as a secure entry point into private subnets. Administrators connect to the Bastion first, then hop into private subnet resources. For stronger security, AWS recommends using Systems Manager Session Manager instead of direct SSH.
+
+
